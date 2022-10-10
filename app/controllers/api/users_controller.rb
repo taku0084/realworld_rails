@@ -4,7 +4,9 @@ module Api
     skip_before_action :require_login, only: [:create, :login]
 
     def create
-      user = User.create!(user_params)
+      create_params = params.require(:user).permit(:email, :username, :password)
+      user = User.create!(create_params)
+
       render json: { user: Users::Serializers::User.new(user, "") }, status: 200
     end
 
@@ -25,12 +27,6 @@ module Api
       current_user.update!(update_params)
 
       render json: { user: Users::Serializers::User.new(current_user, "") }, status: 200
-    end
-
-    private
-
-    def user_params
-      params.require(:user).permit(:email, :username, :password)
     end
   end
 end
