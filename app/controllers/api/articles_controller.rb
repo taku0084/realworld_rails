@@ -14,7 +14,8 @@ class Api::ArticlesController < ApplicationController
 
     article = ApplicationRecord.transaction do
       tags = create_params[:tag_list].map { |tag_name| Tag.find_or_create_by!(name: tag_name) }
-      article = Article.create!(create_params.slice(:title, :description, :body).merge(slug: ""))
+      slug = create_params[:title].downcase.split(/\s+/).join("-")
+      article = Article.create!(create_params.slice(:title, :description, :body).merge(slug: slug))
       article.tags += tags
       article
     end

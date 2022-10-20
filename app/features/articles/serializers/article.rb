@@ -4,7 +4,7 @@ module Articles
 
       # @param [::Article] article
       def initialize(article)
-        @slug = nil
+        @slug = article.slug
         @title = article.title
         @description = article.description
         @body = article.body
