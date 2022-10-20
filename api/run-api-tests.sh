@@ -8,10 +8,12 @@ USERNAME=${USERNAME:-u`date +%s`}
 EMAIL=${EMAIL:-$USERNAME@mail.com}
 PASSWORD=${PASSWORD:-password}
 
-npx newman run $SCRIPTDIR/Conduit.postman_collection.json \
-  --delay-request 500 \
+rails db:migrate:reset
+newman run $SCRIPTDIR/Conduit.postman_collection.json \
+  --delay-request 50 \
   --global-var "APIURL=$APIURL" \
   --global-var "USERNAME=$USERNAME" \
   --global-var "EMAIL=$EMAIL" \
   --global-var "PASSWORD=$PASSWORD" \
+  --bail \
   "$@"
