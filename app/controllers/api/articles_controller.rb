@@ -22,6 +22,13 @@ class Api::ArticlesController < ApplicationController
     render json: { article: Articles::Serializers::Article.new(article) }, status: 200
   end
 
+  def show
+    slug = params[:id]
+    article = Article.find_by(slug: slug)
+
+    render json: { article: Articles::Serializers::Article.new(article) }, status: 200
+  end
+
   def feed
     articles = []
     articles_response = articles.map { |article| Articles::Serializers::Article.new(article) }
