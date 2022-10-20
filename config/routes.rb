@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     end
 
     resource :user, only: [:show, :update]
+
+    resources :articles, only: [:index, :create]
   end
 end
