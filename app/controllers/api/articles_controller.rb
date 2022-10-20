@@ -20,4 +20,11 @@ class Api::ArticlesController < ApplicationController
     end
     render json: { article: Articles::Serializers::Article.new(article) }, status: 200
   end
+
+  def feed
+    articles = []
+    articles_response = articles.map { |article| Articles::Serializers::Article.new(article) }
+
+    render json: { articles: articles_response, articlesCount: articles_response.size }, status: 200
+  end
 end
