@@ -32,5 +32,7 @@ Rails.application.routes.draw do
         delete :follow, action: :unfollow
       end
     end
+
+    resources :tags, only: [:index]
   end
 end
