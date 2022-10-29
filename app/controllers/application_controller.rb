@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     authenticate_or_request_with_http_token do |token, _options|
-      payload, headers = JWT.decode token, Rails.application.credentials.secret_key_base, true, algorithm: "HS256"
-      @current_user = User.find(payload["user_id"])
+      @current_user = User.find_by_token(token)
     end
   end
 
