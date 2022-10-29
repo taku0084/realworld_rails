@@ -16,14 +16,8 @@ class Api::ArticlesController < ApplicationController
 
   def create
     create_params = params.require(:article).permit(:title, :description, :body, tag_list: [])
+    article = Articles::Service::Create.run(current_user: current_user, **create_params.to_h.symbolize_keys)
 
-    article = ApplicationRecord.transaction do
-      tags = create_params[:tag_list].map { |tag_name| Tag.find_or_create_by!(name: tag_name) }
-      slug = create_params[:title].downcase.split(/\s+/).join("-")
-      article = Article.create!(create_params.slice(:title, :description, :body).merge(slug: slug, author: current_user))
-      article.tags += tags.sort_by(&:name)
-      article
-    end
     render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
   end
 
