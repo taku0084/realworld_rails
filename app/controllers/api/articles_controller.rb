@@ -36,13 +36,11 @@ class Api::ArticlesController < ApplicationController
   end
 
   def update
-    slug = params[:id]
-    article = Article.find_by!(slug: slug)
-    update_params = params.permit(:title, :description, :body)
-    article.attributes = update_params
-    article.slug = article.title.downcase.split(/\s+/).join("-")
-    article.save!
+    update_params = params.require(:article).permit(:title, :description, :body)
+    response = Articles::Usecase::Update.run(
+      current_user:, article_slug: params[:id],
+      title: update_params[:title], description: update_params[:description], body: update_params[:body])
 
-    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
+    render json: response, status: 200
   end
 end
