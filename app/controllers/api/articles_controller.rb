@@ -16,9 +16,9 @@ class Api::ArticlesController < ApplicationController
 
   def create
     create_params = params.require(:article).permit(:title, :description, :body, tag_list: [])
-    article = Articles::Service::Create.run(current_user: current_user, **create_params.to_h.symbolize_keys)
+    response = Articles::Usecase::Create.run(current_user:, **create_params.to_h.symbolize_keys)
 
-    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
+    render json: response, status: 200
   end
 
   def show
