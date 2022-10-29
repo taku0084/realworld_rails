@@ -12,8 +12,8 @@ module Articles
         @description = article.description
         @body = article.body
         @tag_list = article.tags.map(&:name)
-        @created_at = article.created_at.iso8601(3)
-        @updated_at = article.updated_at.iso8601(3)
+        @created_at = format_time(article.created_at)
+        @updated_at = format_time(article.updated_at)
         @favorited = favorited
         @favorites_count = article.favorites_count
         @author = Users::Serializers::Author.new(article.author)

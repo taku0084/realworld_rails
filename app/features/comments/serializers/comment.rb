@@ -8,8 +8,8 @@ module Comments
         @id = comment.id
         @body = comment.body
         @author = Users::Serializers::Author.new(comment.author)
-        @created_at = comment.created_at.iso8601(3)
-        @updated_at = comment.updated_at.iso8601(3)
+        @created_at = format_time(comment.created_at)
+        @updated_at = format_time(comment.updated_at)
       end
     end
   end

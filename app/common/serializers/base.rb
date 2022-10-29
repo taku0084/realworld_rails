@@ -9,6 +9,14 @@ module Serializers
       super
     end
 
+    def self.format_time(time)
+      time.iso8601(3)
+    end
+
+    def format_time(time)
+      self.class.format_time(time)
+    end
+
     def read_attribute_for_serialization(key)
       instance_variable_get("@#{key}")
     end
