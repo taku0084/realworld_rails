@@ -2,7 +2,7 @@ module Serializers
   class Base
     include ActiveModel::Serializers::JSON
 
-    class_attribute :attribute_names_for_serialization, default: []
+    class_attribute :attribute_names_for_serialization, default: Set.new
 
     def self.attr_reader(*vars)
       self.attribute_names_for_serialization += Array(vars)
