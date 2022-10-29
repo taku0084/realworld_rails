@@ -2,6 +2,8 @@ module Articles
   module Serializers
     class Article < ::Serializers::Base
 
+      attr_reader :slug, :title, :description, :body, :tag_list, :created_at, :updated_at, :favorited, :favorites_count, :author
+
       # @param [::Article] article
       # @param [Boolean] favorited
       def initialize(article, favorited:)
@@ -20,21 +22,6 @@ module Articles
           "image" => nil,
           "following" => nil
         }
-      end
-
-      def attribute_names_for_serialization
-        %i[
-          slug
-          title
-          description
-          body
-          tag_list
-          created_at
-          updated_at
-          favorited
-          favorites_count
-          author
-        ]
       end
     end
   end

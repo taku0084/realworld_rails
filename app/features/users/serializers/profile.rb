@@ -2,6 +2,8 @@ module Users
   module Serializers
     class Profile < ::Serializers::Base
 
+      attr_reader :username, :bio, :image, :following
+
       # @param [::User] user
       # @param [Boolean] following
       def initialize(user, following:)
@@ -9,17 +11,6 @@ module Users
         @bio = user.bio
         @image = user.image
         @following = following
-      end
-
-      private
-
-      def attribute_names_for_serialization
-        %i[
-          username
-          bio
-          image
-          following
-        ]
       end
     end
   end

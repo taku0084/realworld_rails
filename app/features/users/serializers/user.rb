@@ -1,7 +1,8 @@
 module Users
   module Serializers
-    class User
-      include ActiveModel::Serialization
+    class User < ::Serializers::Base
+
+      attr_reader :email, :username, :bio, :image, :token
 
       def initialize(user, token)
         @email = user.email
@@ -9,16 +10,6 @@ module Users
         @bio = user.bio
         @image = user.image
         @token = token
-      end
-
-      def attributes
-        {
-          "email" => @email,
-          "username" => @username,
-          "bio" => @bio,
-          "image" => @image,
-          "token" => @token,
-        }
       end
     end
   end
