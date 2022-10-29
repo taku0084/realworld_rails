@@ -40,4 +40,15 @@ class Api::ArticlesController < ApplicationController
 
     render json: { articles: articles_response, articlesCount: articles_response.size }, status: 200
   end
+
+  def update
+    slug = params[:id]
+    article = Article.find_by!(slug: slug)
+    update_params = params.permit(:title, :description, :body)
+    article.attributes = update_params
+    article.slug = article.title.downcase.split(/\s+/).join("-")
+    article.save!
+
+    render json: { article: Articles::Serializers::Article.new(article) }, status: 200
+  end
 end

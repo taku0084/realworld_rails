@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     resource :user, only: [:show, :update]
 
-    resources :articles, only: [:index, :create, :show] do
+    resources :articles, only: [:index, :create, :show, :update] do
       collection do
         get :feed
       end
