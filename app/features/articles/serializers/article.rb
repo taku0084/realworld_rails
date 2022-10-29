@@ -16,12 +16,7 @@ module Articles
         @updated_at = article.updated_at.iso8601(3)
         @favorited = favorited
         @favorites_count = article.favorites_count
-        @author = {
-          "username" => nil,
-          "bio" => nil,
-          "image" => nil,
-          "following" => nil
-        }
+        @author = Users::Serializers::Author.new(article.author)
       end
     end
   end
