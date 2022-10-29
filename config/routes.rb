@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       collection do
         get :feed
       end
+      member do
+        post :favorite
+        delete :favorite, action: :unfavorite
+      end
     end
   end
 end

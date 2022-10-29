@@ -3,7 +3,8 @@ module Articles
     class Article < ::Serializers::Base
 
       # @param [::Article] article
-      def initialize(article)
+      # @param [Boolean] favorited
+      def initialize(article, favorited:)
         @slug = article.slug
         @title = article.title
         @description = article.description
@@ -11,8 +12,8 @@ module Articles
         @tag_list = article.tags.map(&:name)
         @created_at = article.created_at.iso8601(3)
         @updated_at = article.updated_at.iso8601(3)
-        @favorited = nil
-        @favorites_count = 0
+        @favorited = favorited
+        @favorites_count = article.favorites_count
         @author = {
           "username" => nil,
           "bio" => nil,

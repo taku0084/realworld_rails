@@ -9,7 +9,7 @@ class Api::ArticlesController < ApplicationController
       else
         Article.all
       end
-    articles_response = articles.map { |article| Articles::Serializers::Article.new(article) }
+    articles_response = articles.map { |article| Articles::Serializers::Article.new(article, favorited: false) }
 
     render json: { articles: articles_response, articlesCount: articles_response.size }, status: 200
   end
@@ -24,19 +24,19 @@ class Api::ArticlesController < ApplicationController
       article.tags += tags.sort_by(&:name)
       article
     end
-    render json: { article: Articles::Serializers::Article.new(article) }, status: 200
+    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
   end
 
   def show
     slug = params[:id]
     article = Article.find_by(slug: slug)
 
-    render json: { article: Articles::Serializers::Article.new(article) }, status: 200
+    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
   end
 
   def feed
     articles = []
-    articles_response = articles.map { |article| Articles::Serializers::Article.new(article) }
+    articles_response = articles.map { |article| Articles::Serializers::Article.new(article, favorited: false) }
 
     render json: { articles: articles_response, articlesCount: articles_response.size }, status: 200
   end
@@ -49,6 +49,26 @@ class Api::ArticlesController < ApplicationController
     article.slug = article.title.downcase.split(/\s+/).join("-")
     article.save!
 
-    render json: { article: Articles::Serializers::Article.new(article) }, status: 200
+    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
+  end
+
+  def favorite
+    article = Article.find_by!(slug: params[:id])
+    ApplicationRecord.transaction do
+      Favorite.create!(user: current_user, article: article)
+      article.increment!(:favorites_count)
+    end
+
+    render json: { article: Articles::Serializers::Article.new(article, favorited: true) }, status: 200
+  end
+
+  def unfavorite
+    article = Article.find_by!(slug: params[:id])
+    ApplicationRecord.transaction do
+      Favorite.find_by!(user: current_user, article: article).destroy!
+      article.decrement!(:favorites_count)
+    end
+
+    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
   end
 end
