@@ -3,15 +3,9 @@ class Api::ArticlesController < ApplicationController
   skip_forgery_protection
 
   def index
-    articles =
-      if (tag = params[:tag])
-        Article.joins(:tags).where(article_tags: { tags: { name: tag } })
-      else
-        Article.all
-      end
-    articles_response = articles.map { |article| Articles::Serializers::Article.new(article, favorited: false) }
+    response = Articles::Usecase::List.run(current_user, params[:tag])
 
-    render json: { articles: articles_response, articlesCount: articles_response.size }, status: 200
+    render json: response, status: 200
   end
 
   def create
