@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         delete :favorite, action: :unfavorite
       end
 
-      resources :comments, only: [:create] do
+      resources :comments, only: [:index, :create] do
       end
     end
   end
