@@ -16,7 +16,7 @@ class Api::ArticlesController < ApplicationController
       tags = create_params[:tag_list].map { |tag_name| Tag.find_or_create_by!(name: tag_name) }
       slug = create_params[:title].downcase.split(/\s+/).join("-")
       article = Article.create!(create_params.slice(:title, :description, :body).merge(slug: slug))
-      article.tags += tags
+      article.tags += tags.sort_by(&:name)
       article
     end
     render json: { article: Articles::Serializers::Article.new(article) }, status: 200
