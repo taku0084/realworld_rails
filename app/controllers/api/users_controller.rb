@@ -5,9 +5,11 @@ module Api
 
     def create
       create_params = params.require(:user).permit(:email, :username, :password)
-      user = User.create!(create_params)
+      response = Users::Usecase::Create.run(
+        email: create_params[:email], username: create_params[:username], password: create_params[:password]
+      )
 
-      render json: { user: Users::Serializers::User.new(user, "") }, status: 200
+      render json: response, status: 200
     end
 
     def login
