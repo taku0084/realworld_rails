@@ -3,11 +3,12 @@ module Users
     class Profile < ::Serializers::Base
 
       # @param [::User] user
-      def initialize(user)
+      # @param [Boolean] following
+      def initialize(user, following:)
         @username = user.username
         @bio = user.bio
         @image = user.image
-        @following = false
+        @following = following
       end
 
       private

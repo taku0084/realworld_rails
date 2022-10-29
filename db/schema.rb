@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_29_090541) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_29_093431) do
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id", null: false
     t.integer "tag_id", null: false
@@ -50,6 +50,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_090541) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "follow_target_user_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.index ["follow_target_user_id"], name: "index_follows_on_follow_target_user_id"
+    t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_tags_on_name"
@@ -71,4 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_090541) do
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "favorites", "articles"
   add_foreign_key "favorites", "users"
+  add_foreign_key "follows", "users"
+  add_foreign_key "follows", "users", column: "follow_target_user_id"
 end
