@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_29_085127) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_29_090541) do
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id", null: false
     t.integer "tag_id", null: false
@@ -29,6 +29,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_085127) do
     t.integer "favorites_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.string "body"
+    t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["author_id"], name: "index_comments_on_author_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -57,6 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_085127) do
 
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
+  add_foreign_key "comments", "articles"
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "favorites", "articles"
   add_foreign_key "favorites", "users"
 end

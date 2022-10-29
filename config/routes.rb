@@ -21,6 +21,9 @@ Rails.application.routes.draw do
         post :favorite
         delete :favorite, action: :unfavorite
       end
+
+      resources :comments, only: [:create] do
+      end
     end
   end
 end
