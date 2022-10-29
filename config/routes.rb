@@ -17,10 +17,8 @@ Rails.application.routes.draw do
       collection do
         get :feed
       end
-      member do
-        post :favorite
-        delete :favorite, action: :unfavorite
-      end
+
+      resource :favorite, only: [:create, :destroy]
 
       resources :comments, only: [:index, :create] do
       end
