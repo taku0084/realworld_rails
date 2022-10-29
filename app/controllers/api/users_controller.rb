@@ -20,14 +20,16 @@ module Api
     end
 
     def show
-      render json: { user: Users::Serializers::User.new(current_user, "") }, status: 200
+      response = Users::Usecase::ShowCurrentUser.run(current_user)
+
+      render json: response, status: 200
     end
 
     def update
       update_params = params.require(:user).permit(:email)
-      current_user.update!(update_params)
+      response = Users::Usecase::UpdateCurrentUser.run(current_user, update_params[:email])
 
-      render json: { user: Users::Serializers::User.new(current_user, "") }, status: 200
+      render json: response, status: 200
     end
   end
 end
