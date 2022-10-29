@@ -3,7 +3,12 @@ class Api::ArticlesController < ApplicationController
   skip_forgery_protection
 
   def index
-    articles = Article.all
+    articles =
+      if (tag = params[:tag])
+        Article.joins(:tags).where(article_tags: { tags: { name: tag } })
+      else
+        Article.all
+      end
     articles_response = articles.map { |article| Articles::Serializers::Article.new(article) }
 
     render json: { articles: articles_response, articlesCount: articles_response.size }, status: 200
