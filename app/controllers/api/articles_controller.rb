@@ -16,10 +16,9 @@ class Api::ArticlesController < ApplicationController
   end
 
   def show
-    slug = params[:id]
-    article = Article.find_by(slug: slug)
+    response = Articles::Usecase::Show.run(current_user, params[:id])
 
-    render json: { article: Articles::Serializers::Article.new(article, favorited: false) }, status: 200
+    render json: response, status: 200
   end
 
   def feed

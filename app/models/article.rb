@@ -6,6 +6,14 @@ class Article < ApplicationRecord
 
   before_save :build_slug
 
+  # @param [::User] user
+  def self.find_with_fav(user, slug)
+    article = Article.find_by!(slug: slug)
+    favorite = user.present? && user.favorites.where(article: article).exists?
+
+    [article, favorite]
+  end
+
   private
 
   def build_slug
