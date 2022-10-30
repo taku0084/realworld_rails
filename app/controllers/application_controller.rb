@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
 
+  rescue_from ::Exceptions::ClientError, with: :client_error
+
   private
 
   def require_login
@@ -19,5 +21,9 @@ class ApplicationController < ActionController::Base
     else
       render json: resource, **options
     end
+  end
+
+  def client_error(error)
+    render json: { errors: { body: error.message } }, status: 400
   end
 end
