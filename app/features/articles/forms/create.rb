@@ -1,5 +1,5 @@
 module Articles
-  module Form
+  module Forms
     class Create < ::Forms::Base
       attribute :title
       attribute :description

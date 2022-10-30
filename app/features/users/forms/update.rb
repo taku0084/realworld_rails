@@ -1,5 +1,5 @@
 module Users
-  module Form
+  module Forms
     class Update
       include ActiveModel::Model
       include ActiveModel::Attributes

@@ -2,7 +2,7 @@ module Articles
   module Usecase
     class Create
       # @param [::User] current_user
-      # @param [::Articles::Form::Create] form
+      # @param [::Articles::Forms::Create] form
       def self.run(current_user, form)
         ApplicationRecord.transaction do
           # TODO: tag validation error

@@ -5,7 +5,7 @@ module Api
 
     def create
       create_params = params.require(:user).permit(:email, :username, :password)
-      form = Users::Form::Create.new(create_params)
+      form = Users::Forms::Create.new(create_params)
       response = Users::Usecase::Create.run(form)
 
       render_with response, status: 201
@@ -26,7 +26,7 @@ module Api
 
     def update
       update_params = params.require(:user).permit(:email, :username, :password, :image, :bio)
-      form = Users::Form::Update.new(update_params)
+      form = Users::Forms::Update.new(update_params)
       response = Users::Usecase::UpdateCurrentUser.run(current_user, form)
 
       render_with response

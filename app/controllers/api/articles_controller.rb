@@ -10,7 +10,7 @@ class Api::ArticlesController < ApplicationController
 
   def create
     create_params = params.require(:article).permit(:title, :description, :body, tag_list: [])
-    form = Articles::Form::Create.new(create_params)
+    form = Articles::Forms::Create.new(create_params)
     response = Articles::Usecase::Create.run(current_user, form)
 
     render_with response, status: 201
