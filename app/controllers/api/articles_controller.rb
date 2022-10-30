@@ -10,9 +10,10 @@ class Api::ArticlesController < ApplicationController
 
   def create
     create_params = params.require(:article).permit(:title, :description, :body, tag_list: [])
-    response = Articles::Usecase::Create.run(current_user:, **create_params.to_h.symbolize_keys)
+    form = Articles::Form::Create.new(create_params)
+    response = Articles::Usecase::Create.run(current_user, form)
 
-    render json: response, status: 200
+    render_with response, status: 201
   end
 
   def show

@@ -6,6 +6,10 @@ class Article < ApplicationRecord
 
   before_save :build_slug
 
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :body, presence: true
+
   # @param [::User] user
   def self.find_with_fav(user, slug)
     article = Article.find_by!(slug: slug)

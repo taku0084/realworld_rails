@@ -7,8 +7,8 @@ module Users
       # @param [::User] user
       def initialize(user)
         @username = user.username
-        @bio = user.bio
-        @image = user.image
+        @bio = user.bio || ""
+        @image = user.image || ""
         @following = false
       end
     end
