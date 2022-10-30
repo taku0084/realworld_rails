@@ -4,7 +4,7 @@ module Users
       def self.run(email:, username:, password:)
         user = User.create!(email:, username:, password:)
 
-        { user: Users::Serializers::CurrentUser.new(user, user.generate_token) }
+        { user: Users::Serializers::CurrentUser.new(user, "") }
       end
     end
   end
