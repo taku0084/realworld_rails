@@ -15,13 +15,13 @@ module Api
       login_params = params.require(:user).permit(:email, :password)
       response = Users::Usecase::Login.run(email: login_params[:email], password: login_params[:password])
 
-      render json: response, status: 200
+      render_with response
     end
 
     def show
       response = Users::Usecase::ShowCurrentUser.run(current_user)
 
-      render json: response, status: 200
+      render_with response
     end
 
     def update
