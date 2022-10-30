@@ -12,7 +12,7 @@ module Api
       }
       post "/api/users", params: params
 
-      assert_equal 200, response.status
+      assert_response_schema_confirm 201
     end
 
     test "POST /api/users validation error" do

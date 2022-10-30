@@ -8,7 +8,7 @@ module Api
       form = Users::Form::Create.new(create_params)
       response = Users::Usecase::Create.run(form)
 
-      render_with response
+      render_with response, status: 201
     end
 
     def login
