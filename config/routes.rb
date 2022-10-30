@@ -25,10 +25,7 @@ Rails.application.routes.draw do
     end
 
     resources :profiles, only: [:show] do
-      member do
-        post :follow
-        delete :follow, action: :unfollow
-      end
+      resource :follow, only: [:create, :destroy]
     end
 
     resources :tags, only: [:index]
