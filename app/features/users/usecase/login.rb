@@ -4,7 +4,7 @@ module Users
       def self.run(email:, password:)
         user = User.find_by(email:, password:)
 
-        { user: Users::Serializers::User.new(user, user.generate_token) }
+        { user: Users::Serializers::CurrentUser.new(user, user.generate_token) }
       end
     end
   end

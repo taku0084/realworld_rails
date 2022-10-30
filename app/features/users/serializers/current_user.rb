@@ -1,6 +1,6 @@
 module Users
   module Serializers
-    class User < ::Serializers::Base
+    class CurrentUser < ::Serializers::Base
 
       attr_reader :email, :username, :bio, :image, :token
 
