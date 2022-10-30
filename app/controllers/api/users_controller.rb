@@ -25,10 +25,11 @@ module Api
     end
 
     def update
-      update_params = params.require(:user).permit(:email)
-      response = Users::Usecase::UpdateCurrentUser.run(current_user, update_params[:email])
+      update_params = params.require(:user).permit(:email, :username, :password, :image, :bio)
+      form = Users::Form::Update.new(update_params)
+      response = Users::Usecase::UpdateCurrentUser.run(current_user, form)
 
-      render json: response, status: 200
+      render_with response
     end
   end
 end
