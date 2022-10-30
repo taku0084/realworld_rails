@@ -1,0 +1,51 @@
+ja:
+  activerecord:
+    models:
+      article: 論文  #g
+      article_tag: 記事タグ  #g
+      comment: コメント  #g
+      favorite: お気に入り  #g
+      follow: 従う  #g
+      tag: 鬼ごっこ  #g
+      user: ユーザー  #g
+
+    attributes:
+      article:
+        article_tags: 記事のタグ  #g
+        author: :activerecord.models.author  #g
+        body: 体  #g
+        comments: コメント  #g
+        description: 説明  #g
+        slug: ナメクジ  #g
+        tags: タグ  #g
+        title: 題名  #g
+
+      article_tag:
+        article: :activerecord.models.article  #g
+        tag: :activerecord.models.tag  #g
+
+      comment:
+        article: :activerecord.models.article  #g
+        author: :activerecord.models.author  #g
+        body: 体  #g
+
+      favorite:
+        article: :activerecord.models.article  #g
+        user: :activerecord.models.user  #g
+
+      follow:
+        follow_target_user: :activerecord.models.follow_target_user  #g
+        user: :activerecord.models.user  #g
+
+      tag:
+        name: 名前  #g
+
+      user:
+        articles: 記事  #g
+        bio: バイオ  #g
+        email: Eメール  #g
+        favorites: お気に入り  #g
+        follows: フォロー  #g
+        image: 画像  #g
+        password: パスワード  #g
+        username: ユーザー名  #g
