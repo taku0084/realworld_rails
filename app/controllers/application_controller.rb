@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user
   end
+
+  def render_with(resource, **options)
+    if resource.respond_to?(:errors) && !resource.errors.empty?
+      render json: { errors: resource.errors }, status: 422
+    else
+      render json: resource, **options
+    end
+  end
 end
