@@ -35,11 +35,25 @@ class Api::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe "POST /api/users/login" do
-    describe "login error" do
-      before do
-        User.create!(email: "test-email", password: "test-password", username: "test")
-      end
+    before do
+      User.create!(email: "test-email", password: "test-password", username: "test")
+    end
 
+    describe "success" do
+      it "200" do
+        params = {
+          user: {
+            email: "test-email",
+            password: "test-password",
+          }
+        }
+        post "/api/users/login", params: params
+
+        assert_response_schema_confirm 200
+      end
+    end
+
+    describe "login error" do
       it "400" do
         params = {
           user: {
