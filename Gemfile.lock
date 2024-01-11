@@ -114,11 +114,13 @@ GEM
       timeout
     net-smtp (0.3.2)
       net-protocol
-    nio4r (2.5.8)
+    nio4r (2.7.0)
     nokogiri (1.13.8-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
+      racc (~> 1.4)
     openapi_parser (0.15.0)
-    puma (5.6.5)
+    puma (5.6.8)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
@@ -161,6 +163,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.5.2-arm64-darwin)
+    sqlite3 (1.5.2-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -172,6 +175,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   committee-rails
@@ -179,7 +183,7 @@ DEPENDENCIES
   i18n_generators
   jwt
   minitest-rails
-  puma (~> 5.0)
+  puma (~> 5.6)
   rails (~> 7.0.4)
   sprockets-rails
   sqlite3 (~> 1.4)
